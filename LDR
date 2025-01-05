@@ -1,0 +1,15 @@
+#include <Arduino.h>
+
+#define LDR_PIN 2  // Use GPIO34 for reading the LDR
+
+void setup() {
+  Serial.begin(9600);  // Start serial communication at 115200 baud
+  pinMode(LDR_PIN, INPUT); // Set LDR pin as input
+}
+
+void loop() {
+  int ldrValue = analogRead(LDR_PIN);  // Read the analog value from the LDR
+  Serial.print("Light Intensity: ");
+  Serial.println(ldrValue);  // Print the value to the Serial Monitor
+  delay(500);  // Wait for 500ms
+}
