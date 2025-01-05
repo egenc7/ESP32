@@ -1,0 +1,72 @@
+//blocking way
+
+#include <Arduino.h>
+#include <WiFiMulti.h>
+
+#define LED_BUILTIN 2
+#define WIFI_SSID "wifiname"
+#define WIFI_PASSWORD "password"
+
+WiFiMulti wifiMulti;
+
+
+void setup() {
+  Serial.begin(9600);  
+  pinMode(LED_BUILTIN, OUTPUT);
+
+  wifiMulti.addAP(WIFI_SSID, WIFI_PASSWORD);
+
+  while (wifiMulti.run() != WL_CONNECTED) {
+    delay(100);
+
+  }
+  Serial.println("Connected");
+}
+void loop() {
+  digitalWrite(LED_BUILTIN, WiFi.status() == WL_CONNECTED);
+}
+
+
+
+
+//nonblocking way
+
+#include <Arduino.h>
+#include <WiFi.h>
+
+#define LED_BUILTIN 2
+#define WIFI_SSID "TurkTelekom_TP1C80_2.4GHz"
+#define WIFI_PASSWORD "fTAyT9J979bL"
+
+
+
+
+void setup() {
+  Serial.begin(9600);  
+  pinMode(LED_BUILTIN, OUTPUT);
+
+  WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
+
+  Serial.println("starting");
+}
+
+bool isConnected = false;
+
+
+void loop()
+{
+
+  if (WiFi.status() == WL_CONNECTED && !isConnected) {
+    Serial.println("Connected to WiFi");
+    digitalWrite(LED_BUILTIN, HIGH);
+    isConnected = true;
+
+  }
+
+  if (WiFi.status() != WL_CONNECTED) {
+    Serial.println(".");
+    digitalWrite(LED_BUILTIN, !digitalRead(LED_BUILTIN));
+    delay(1000);
+    isConnected = false;
+  }
+}
