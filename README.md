@@ -7,3 +7,5 @@ Projects conducted with esp32 dev kit
 
 
 I will be usig Platformio (an extension of VScode) to write and sent commands to esp32. Main functions should be written in main.cpp file.
+
+https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32/esp32-devkitc/index.html user guide
