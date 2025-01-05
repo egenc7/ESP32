@@ -1,0 +1,35 @@
+// Led Blinking 
+
+#include <Arduino.h>
+
+#define LED_BUILTIN 2
+bool shouldBlink = true; // Control the blinking
+
+void setup() {
+    pinMode(LED_BUILTIN, OUTPUT);
+    Serial.begin(9600);
+    Serial.println("Type 'STOP' to stop blinking the LED.");
+}
+
+void loop() {
+    // Check if there's input from the Serial Monitor
+    if (Serial.available() > 0) {
+        String input = Serial.readStringUntil('\n');
+        input.trim(); // Remove any extra spaces or newline characters
+
+        if (input.equalsIgnoreCase("STOP")) {
+            shouldBlink = false; // Stop blinking
+            digitalWrite(LED_BUILTIN, LOW); // Turn off the LED
+            Serial.println("Blinking stopped.");
+        }
+    }
+
+    // Blink the LED if allowed
+    if (shouldBlink) {
+        digitalWrite(LED_BUILTIN, HIGH);
+        delay(1000);
+        digitalWrite(LED_BUILTIN, LOW);
+        delay(1000);
+    }
+}
+
