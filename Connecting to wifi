@@ -35,8 +35,8 @@ void loop() {
 #include <WiFi.h>
 
 #define LED_BUILTIN 2
-#define WIFI_SSID "TurkTelekom_TP1C80_2.4GHz"
-#define WIFI_PASSWORD "fTAyT9J979bL"
+#define WIFI_SSID "wifiname"
+#define WIFI_PASSWORD "password"
 
 
 
