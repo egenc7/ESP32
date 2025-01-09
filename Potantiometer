@@ -1,0 +1,15 @@
+#include <Arduino.h>
+
+const int PotPin = 2;
+int PotValue;
+
+void setup() {
+    Serial.begin(9600);
+    pinMode(PotPin, INPUT);
+}
+
+void loop() {
+    PotValue = analogRead(PotPin);
+    delay(1000);
+    Serial.print(PotValue);
+}
