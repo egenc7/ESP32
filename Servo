@@ -1,0 +1,26 @@
+#include <Arduino.h>
+#include <Wire.h>
+#include <ESP32Servo.h>
+
+Servo myServo;  // Create a Servo object
+
+#define SERVO_PIN 25 // Pin connected to the servo signal wire
+
+void setup() {
+  myServo.attach(SERVO_PIN);  // Attach the servo to the pin
+  Serial.begin(9600);          // Start serial communication for debugging
+}
+
+void loop() {
+  // Sweep from 0 to 180 degrees
+  for (int pos = 0; pos <= 180; pos += 5) {
+    myServo.write(pos);  // Set servo position
+    delay(10);            // Wait for the servo to reach the position
+  }
+
+  // Sweep back from 180 to 0 degrees
+  for (int pos = 180; pos >= 0; pos -= 5) {
+    myServo.write(pos);
+    delay(10);
+  }
+}
