@@ -1,0 +1,19 @@
+#define PIR_PIN 22 // Pin connected to the OUT pin of the HC-SR501 sensor
+
+void setup() {
+  Serial.begin(9600);  // Start the serial communication
+  pinMode(PIR_PIN, INPUT);  // Set PIR_PIN as input
+}
+
+void loop() {
+  int motionState = digitalRead(PIR_PIN);  // Read the state of the sensor
+
+  if (motionState == HIGH) {
+    // Motion detected
+    Serial.println("Motion detected!");
+  } else {
+    // No motion detected
+    Serial.println("No motion");
+  }
+  delay(500);  // Wait for half a second before checking again
+}
