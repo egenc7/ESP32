@@ -1,0 +1,28 @@
+#include <Wire.h>
+#include <LiquidCrystal_I2C.h>
+
+// Set the I2C address of your LCD (adjust based on the I2C scanner result)
+LiquidCrystal_I2C lcd(0x27, 20, 4); // 20x4 LCD
+
+void setup() {
+  lcd.init();          // Initialize the LCD
+  lcd.backlight();     // Turn on the backlight
+
+  // Print "Hello" on the first row
+  lcd.setCursor(0, 0); // Column 0, Row 0 (top-left corner)
+  lcd.print("Hello");
+
+  // Example: Print text on other rows
+  lcd.setCursor(0, 1); // Column 0, Row 1
+  lcd.print("This is row 2");
+
+  lcd.setCursor(0, 2); // Column 0, Row 2
+  lcd.print("This is row 3");
+
+  lcd.setCursor(0, 3); // Column 0, Row 3
+  lcd.print("This is row 4");
+}
+
+void loop() {
+  // Nothing to do here
+}
