@@ -1,0 +1,54 @@
+#include <Arduino.h>
+#include <Wire.h>
+#define JOYSTICK_X_PIN 34  // X-axis pin (use A0 or GPIO34 on ESP32)
+#define JOYSTICK_Y_PIN 35  // Y-axis pin (use A1 or GPIO35 on ESP32)
+#define JOYSTICK_SW_PIN 12  // SW button pin (change to your actual pin for SW)
+
+int joystickXValue = 0;
+int joystickYValue = 0;
+int joystickSWValue = 0;  // Variable to store the SW button state
+
+void setup() {
+  Serial.begin(9600);  // Start serial communication
+  pinMode(JOYSTICK_X_PIN, INPUT);  // Set X-axis pin as input
+  pinMode(JOYSTICK_Y_PIN, INPUT);  // Set Y-axis pin as input
+  pinMode(JOYSTICK_SW_PIN, INPUT_PULLUP);  // Set SW pin as input with internal pull-up resistor
+}
+
+void loop() {
+  joystickXValue = analogRead(JOYSTICK_X_PIN);  // Read the X-axis value
+  joystickYValue = analogRead(JOYSTICK_Y_PIN);  // Read the Y-axis value
+  joystickSWValue = digitalRead(JOYSTICK_SW_PIN);  // Read the SW button state
+
+  // Print the X and Y values for debugging
+  Serial.print("X: ");
+  Serial.print(joystickXValue);
+  Serial.print("\tY: ");
+  Serial.println(joystickYValue);
+
+  // Adjust for reversed Y-axis
+  if (joystickXValue < 400) {
+    Serial.println("Moving Left");
+  } else if (joystickXValue > 4000) {
+    Serial.println("Moving Right");
+  } else {
+    Serial.println("Centered");
+    }
+  
+
+  // Check for reversed Y-axis movement
+  if (joystickYValue < 400) {  // Joystick pushed up (Y is 0)
+    Serial.println("Moving Up");
+  } else if (joystickYValue > 4000) {  // Joystick pushed down (Y is 4095)
+    Serial.println("Moving Down");
+  } else {
+    Serial.println("Idle");
+  }
+
+  // Check if the button is pressed (SW)
+  if (joystickSWValue == LOW) {
+    Serial.println("Button Pressed!");
+  }
+
+  delay(500);  // Small delay for readability
+}
