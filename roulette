@@ -1,0 +1,55 @@
+#include <Arduino.h>
+
+#define NUM_LEDS 12 // Number of LEDs
+int ledPins[NUM_LEDS] = {2, 4, 5, 12, 13, 14, 15, 18, 19, 21, 23, 25}; // LED GPIO pins
+const int buttonPin = 22; // GPIO pin for the button
+bool isSpinning = false; // Indicates whether the roulette is spinning
+
+void spinRoulette(); // Declare the function before it's used in the code
+
+void setup() {
+  // Initialize LED pins as outputs
+  for (int i = 0; i < NUM_LEDS; i++) {
+    pinMode(ledPins[i], OUTPUT);
+    digitalWrite(ledPins[i], LOW);
+  }
+  
+  // Initialize button pin as input with internal pull-up
+  pinMode(buttonPin, INPUT_PULLUP);
+  
+  Serial.begin(115200);
+}
+
+void loop() {
+  // Check if the button is pressed
+  if (digitalRead(buttonPin) == LOW) {
+    delay(200); // Debounce delay
+    isSpinning = !isSpinning; // Toggle spinning state
+  }
+  
+  if (isSpinning) {
+    spinRoulette();
+  }
+}
+
+// Function to spin the roulette
+void spinRoulette() {
+  static int currentLED = 0;
+  static unsigned long lastUpdate = 0;
+  unsigned long interval = 50; // Adjust speed (lower = faster)
+
+  if (millis() - lastUpdate > interval) {
+    // Turn off all LEDs
+    for (int i = 0; i < NUM_LEDS; i++) {
+      digitalWrite(ledPins[i], LOW);
+    }
+    
+    // Light up the current LED
+    digitalWrite(ledPins[currentLED], HIGH);
+    
+    // Move to the next LED
+    currentLED = (currentLED + 1) % NUM_LEDS;
+    
+    lastUpdate = millis();
+  }
+}
