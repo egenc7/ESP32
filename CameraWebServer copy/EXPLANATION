@@ -1,0 +1,19 @@
+- Download the ESP32 from Boards Manager
+- Tools 
+-- Board: "Esp32 Wrover module"
+-- Port: "/dev/cu.usbserial-xxxx"
+-- Flas Frequency: "40 MHz"
+-- Partition Scheme: "Huge APP(3MB NO OTA/1MB SPIFFS)
+-- Upload Speed: "115200"
+
+- File
+-- Examples-ESP32-Camera-CameraWebServer
+
+-Set the baud to 115200
+
+Arduino                 Esp32-CAM
+RES-GND                
+5V             --          5V
+GND            --          GND
+TX             --          UOT
+RX             --          UOR
