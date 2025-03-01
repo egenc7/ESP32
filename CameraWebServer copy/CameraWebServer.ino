@@ -36,8 +36,8 @@
 // ===========================
 // Enter your WiFi credentials
 // ===========================
-const char *ssid = "TurkTelekom_TP1C80_2.4GHz_plus";
-const char *password = "fTAyT9J979bL";
+const char *ssid = "...";
+const char *password = "...";
 
 void startCameraServer();
 void setupLedFlash(int pin);
